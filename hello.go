@@ -3,10 +3,15 @@ package main
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 type Point struct {
 	X, Y float64
+}
+
+func (p Point) String() string {
+	return fmt.Sprintf("(%.2f, %.2f)", p.X, p.Y)
 }
 
 func (p Point) Abs() float64 {
@@ -24,9 +29,34 @@ func (p Point) CompareTo(other Point) Point {
 	return other
 }
 
+type Points []Point
+
+func (points Points) Len() int {
+	return len(points)
+}
+
+func (points Points) Less(i, j int) bool {
+	return points[i].Abs() < points[j].Abs()
+}
+
+func (points Points) Swap(i, j int) {
+	points[i], points[j] = points[j], points[i]
+}
+
+func (points Points) String() string {
+	str := ""
+	for _, point := range points {
+		str += fmt.Sprintln(point.String(), "\t", fmt.Sprintf("%.2f", point.Abs()))
+	}
+	return str
+}
+
 func main() {
-	point := Point{3, 4}
-	point2 := Point{3, 4}
-	fmt.Println(point.CompareTo(point2))
-	fmt.Println(point == point2)
+	points := Points{
+		{3, 4},
+		{5, 10},
+		{1, 2},
+	}
+	sort.Sort(points)
+	fmt.Println(points)
 }
