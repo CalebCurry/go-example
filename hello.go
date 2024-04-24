@@ -28,12 +28,7 @@ func ModifySlice(data []int) {
 }
 
 func Clear(pts *points.Magnitudes) {
-	*pts = points.Magnitudes{
-		points.Point{X: 30, Y: 4},
-		points.Point{X: 5, Y: 10},
-		points.Point{X: 10, Y: 2},
-		points.PointXYZ{X: 1, Y: 2, Z: 3},
-	}
+	*pts = nil
 	fmt.Println("Inside function:", pts)
 }
 
